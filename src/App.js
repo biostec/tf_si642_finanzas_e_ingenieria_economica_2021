@@ -6,8 +6,7 @@ import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Header from "./components/Globales/Header"
@@ -17,39 +16,33 @@ import Cartera from "./pages/CarteraFacturas/index"
 import Historial from "./pages/HistorialFacturas/index"
 import Registro from "./pages/RegistroFacturas/index"
 
-
 function App() {
   const [logeado, setLogeado] = useState(false);
  return (
     <Router>
-      <div>
-        {
-          logeado 
-          ? 
-            <Login/> 
-          :
-            <React.Fragment>
-              <Header />
-              <Switch>
-                <Route path="/cartera">
-                  <Cartera />
-                </Route>
-                <Route path="/historial">
-                  <Historial />
-                </Route>
-                <Route path="/registro">
-                  <Registro />
-                </Route>
-                <Route path="/">
-                  <Perfil />
-                </Route>
-              </Switch>
-            </React.Fragment>
-        }
-        <button onClick={() => setLogeado(!logeado)}>
-          logear/deslogear
-        </button>
-      </div>
+      <Header logeado={logeado} setLogeado={setLogeado}  />
+      {
+        !logeado 
+        ? 
+          <Login logeado={logeado} setLogeado={setLogeado} /> 
+        :
+          <React.Fragment>
+            <Switch>
+              <Route path="/cartera">
+                <Cartera />
+              </Route>
+              <Route path="/historial">
+                <Historial />
+              </Route>
+              <Route path="/registro">
+                <Registro />
+              </Route>
+              <Route path="/">
+                <Perfil />
+              </Route>
+            </Switch>
+          </React.Fragment>
+      }
     </Router>
   );
 }

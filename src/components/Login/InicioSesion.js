@@ -1,9 +1,10 @@
 import React from 'react';
 
-const InicioSesion = () => {
+const InicioSesion = ({logeado, setLogeado}) => {
     return (
-        <div>
-            Inicio Sesion
+        <div className="mb-2">
+            <h1>Bienvenido a Facturanding</h1>
+            <button onClick={() => {setLogeado(!logeado)}}>Logearse</button>
         </div>
     );
 }

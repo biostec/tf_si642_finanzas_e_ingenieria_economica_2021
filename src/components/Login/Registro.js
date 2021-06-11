@@ -3,7 +3,7 @@ import React from 'react';
 const Registro = () => {
     return (
         <div>
-            Registro
+            <button disabled>Registrarse</button>
         </div>
     );
 }
