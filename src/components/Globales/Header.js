@@ -52,7 +52,7 @@ export default function Header({logeado, setLogeado}) {
             Facturanding
           </Link>
         </Typography>
-        {logeado && (       
+        {logeado && (
             <React.Fragment>
               <Typography variant="p" className={classes.title}>
                 <Link to={`/registro`}>

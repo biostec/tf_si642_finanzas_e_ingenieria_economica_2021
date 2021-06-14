@@ -1,12 +1,9 @@
 import React from 'react'
 import InicioSesion from "../../components/Login/InicioSesion"
-import Registro from "../../components/Login/Registro"
-
 const index = ({logeado, setLogeado}) => {
     return (
-        <div>
+        <div >
             <InicioSesion  logeado={logeado} setLogeado={setLogeado}  />
-            <Registro />            
         </div>
     );
 }
