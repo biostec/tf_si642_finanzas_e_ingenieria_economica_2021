@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,10 +8,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import app from "./../../base";
-
 import { AuthContext } from "./../../Auth";
+import MobileMenu from "./MobileMenu";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,16 +20,18 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
+  Perfil: {
+    marginLeft: theme.spacing(2),
   },
 }));
 
 export default function Header() {
   const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const history = useHistory();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,41 +50,70 @@ export default function Header() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
+          {currentUser && (
+            <IconButton
+              edge="start"
+              className="d-sm-none"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           {!currentUser ? (
-            <Typography variant="h6" className={classes.title}>
-              <Link to={`/`}>Facturanding</Link>
-            </Typography>
+            <Typography variant="h5">Facturanding</Typography>
           ) : (
             <React.Fragment>
-              <Typography variant="p" className={classes.title}>
-                <Link to={`/home`}>Inicio</Link>
-              </Typography>
-              <Typography variant="p" className={classes.title}>
-                <Link to={`/registroFacturas`}>Registro de Facturas</Link>
-              </Typography>
-              <Typography variant="p" className={classes.title}>
-                <Link to={`/historialFacturas`}>Historial de Productos</Link>
-              </Typography>
-              <Typography variant="p" className={classes.title}>
-                <Link to={`/carteraFacturas`}>Carta de Facturas</Link>
-              </Typography>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
+              <Typography
+                variant="p"
+                className="d-none d-sm-block flex-grow-1"
+                onClick={() => history.push("/home")}
+                style={{ cursor: "pointer" }}
               >
-                <AccountCircle />
-              </IconButton>
+                Inicio
+              </Typography>
+
+              <Typography
+                variant="p"
+                className="d-none d-sm-block flex-grow-1"
+                onClick={() => history.push("/registroFacturas")}
+                style={{ cursor: "pointer" }}
+              >
+                Registro de Facturas
+              </Typography>
+
+              <Typography
+                variant="p"
+                className="d-none d-sm-block flex-grow-1"
+                onClick={() => history.push("/historialFacturas")}
+                style={{ cursor: "pointer" }}
+              >
+                Historial de Productos
+              </Typography>
+
+              <Typography
+                variant="p"
+                className="d-none d-sm-block flex-grow-1"
+                onClick={() => history.push("/carteraFacturas")}
+                style={{ cursor: "pointer" }}
+              >
+                Cartera de Facturas
+              </Typography>
+
+              <div
+                style={{ position: "absolute", right: "0px", padding: "10px" }}
+              >
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </div>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -107,6 +138,8 @@ export default function Header() {
           )}
         </Toolbar>
       </AppBar>
+
+      <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
     </div>
   );
 }
