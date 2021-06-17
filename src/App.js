@@ -1,44 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
 import Header from "./components/Globales/Header";
-import ManagerLogin from "./pages/Login/index";
+import ManagerSession from "./pages/ManagerSession/index";
 import Home from "./pages/Home/index";
 import Cartera from "./pages/CarteraFacturas/index";
 import Historial from "./pages/HistorialFacturas/index";
 import Registro from "./pages/RegistroFacturas/index";
 import history from "./utils/history";
+import { AuthProvider } from "./Auth";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
-  const [logeado, setLogeado] = useState(false);
-
-  useEffect(() => {
-    if (!logeado) history.push("/");
-  });
-
   return (
-    <Router history={history}>
-      <Header logeado={logeado} setLogeado={setLogeado} />
-      {!logeado ? (
-        <ManagerLogin logeado={logeado} setLogeado={setLogeado} />
-      ) : (
+    <AuthProvider>
+      <Router history={history}>
+        <Header />
         <Switch>
-          <Route path="/carteraFacturas">
+          <Route path="/login">
+            <ManagerSession />
+          </Route>
+          <PrivateRoute exact path="/carteraFacturas">
             <Cartera />
-          </Route>
-          <Route path="/historialFacturas">
+          </PrivateRoute>
+          <PrivateRoute exact path="/historialFacturas">
             <Historial />
-          </Route>
-          <Route path="/registroFacturas">
+          </PrivateRoute>
+          <PrivateRoute exact path="/registroFacturas">
             <Registro />
-          </Route>
-          <Route path="/home">
+          </PrivateRoute>
+          <PrivateRoute exact path="/home">
             <Home />
-          </Route>
+          </PrivateRoute>
         </Switch>
-      )}
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 };
 

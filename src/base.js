@@ -1,6 +1,7 @@
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
+import "firebase/auth";
 
-const app = firebase.initializeApp({
+const config = firebase.initializeApp({
   apiKey: "AIzaSyBtEUngDIVn3mh51473POg8Iscl49C9Bug",
   authDomain: "tf-si642-finanzas.firebaseapp.com",
   projectId: "tf-si642-finanzas",
@@ -9,4 +10,4 @@ const app = firebase.initializeApp({
   appId: "1:3372429263:web:ff5d5afb1ae6d6c18d6cba",
 });
 
-export default app;
+export default config;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +9,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Link } from "react-router-dom";
+import app from "./../../base";
+
+import { AuthContext } from "./../../Auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ logeado, setLogeado }) {
+export default function Header() {
+  const { currentUser } = useContext(AuthContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -37,7 +41,7 @@ export default function Header({ logeado, setLogeado }) {
 
   const handleChange = () => {
     handleClose();
-    setLogeado(!logeado);
+    app.auth().signOut();
   };
 
   return (
@@ -52,7 +56,7 @@ export default function Header({ logeado, setLogeado }) {
           >
             <MenuIcon />
           </IconButton>
-          {!logeado ? (
+          {!currentUser ? (
             <Typography variant="h6" className={classes.title}>
               <Link to={`/`}>Facturanding</Link>
             </Typography>
