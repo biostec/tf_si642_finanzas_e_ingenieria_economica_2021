@@ -1,7 +1,7 @@
 import React from 'react';
 import ListaHFacturas from "../../components/HistorialFacturas/ListaHFacturas"
 
-const index = () => {
+const HistorialFacturas = () => {
     return (
         <div>
             <ListaHFacturas />
@@ -9,4 +9,4 @@ const index = () => {
     );
 }
 
-export default index;
+export default HistorialFacturas;

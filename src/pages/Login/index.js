@@ -1,11 +1,23 @@
-import React from 'react'
-import InicioSesion from "../../components/Login/InicioSesion"
-const index = ({logeado, setLogeado}) => {
-    return (
-        <div >
-            <InicioSesion  logeado={logeado} setLogeado={setLogeado}  />
-        </div>
-    );
-}
+import React, { useState } from "react";
+import InicioSesion from "../../components/Login/InicioSesion";
+import Registro from "../../components/Login/Registro";
 
-export default index;
+const Login = ({ logeado, setLogeado }) => {
+  const [register, setRegister] = useState(false);
+  return (
+    <div>
+      {register ? (
+        <Registro register={register} setRegister={setRegister} />
+      ) : (
+        <InicioSesion
+          logeado={logeado}
+          setLogeado={setLogeado}
+          register={register}
+          setRegister={setRegister}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Login;

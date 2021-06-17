@@ -1,13 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({logeado, setLogeado}) {
+export default function Header({ logeado, setLogeado }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -36,7 +36,7 @@ export default function Header({logeado, setLogeado}) {
   };
 
   const handleChange = () => {
-    handleClose()
+    handleClose();
     setLogeado(!logeado);
   };
 
@@ -44,30 +44,31 @@ export default function Header({logeado, setLogeado}) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          <Link to={`/`}>
-            Facturanding
-          </Link>
-        </Typography>
-        {logeado && (
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          {!logeado ? (
+            <Typography variant="h6" className={classes.title}>
+              <Link to={`/`}>Facturanding</Link>
+            </Typography>
+          ) : (
             <React.Fragment>
               <Typography variant="p" className={classes.title}>
-                <Link to={`/registro`}>
-                  Registro de Facturas
-                </Link>
-              </Typography>            
-              <Typography variant="p" className={classes.title}>
-                <Link to={`/historial`}>
-                  Historial de Productos
-                </Link>
+                <Link to={`/home`}>Inicio</Link>
               </Typography>
-              <Typography variant="p" className={classes.title}>                
-                <Link to={`/cartera`}>
-                  Carta de Facturas
-                </Link>
+              <Typography variant="p" className={classes.title}>
+                <Link to={`/registroFacturas`}>Registro de Facturas</Link>
+              </Typography>
+              <Typography variant="p" className={classes.title}>
+                <Link to={`/historialFacturas`}>Historial de Productos</Link>
+              </Typography>
+              <Typography variant="p" className={classes.title}>
+                <Link to={`/carteraFacturas`}>Carta de Facturas</Link>
               </Typography>
               <IconButton
                 aria-label="account of current user"
@@ -82,21 +83,21 @@ export default function Header({logeado, setLogeado}) {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={handleClose}
               >
-                <Link to={`/perfil`}><MenuItem onClick={handleClose}>Perfil</MenuItem></Link>
-                <MenuItem onClick={handleChange}>
-                  Cerrar Sesion
-                </MenuItem>
+                <Link to={`/perfil`}>
+                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                </Link>
+                <MenuItem onClick={handleChange}>Cerrar Sesion</MenuItem>
               </Menu>
             </React.Fragment>
           )}
