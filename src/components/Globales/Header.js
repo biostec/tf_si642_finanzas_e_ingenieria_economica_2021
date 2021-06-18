@@ -9,8 +9,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { Link, useHistory } from "react-router-dom";
-import app from "./../../base";
-import { AuthContext } from "./../../Auth";
+import { auth } from "../../utils/firebase";
+import { AuthContext } from "./../../utils/Auth";
 import MobileMenu from "./MobileMenu";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ export default function Header() {
 
   const handleChange = () => {
     handleClose();
-    app.auth().signOut();
+    auth.signOut();
   };
 
   return (

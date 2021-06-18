@@ -9,8 +9,8 @@ import Cartera from "./pages/CarteraFacturas/index";
 import Historial from "./pages/HistorialFacturas/index";
 import Registro from "./pages/RegistroFacturas/index";
 import history from "./utils/history";
-import { AuthProvider } from "./Auth";
-import PrivateRoute from "./PrivateRoute";
+import { AuthProvider } from "./utils/Auth";
+import PrivateRoute from "./utils/PrivateRoute";
 
 const App = () => {
   return (

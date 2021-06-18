@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
-import app from "../../base";
+import { auth } from "../../utils/firebase";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -19,7 +19,7 @@ const Registro = ({ history, register, setRegister }) => {
   const handleSignUp = async (event) => {
     event.preventDefault();
     try {
-      await app.auth().createUserWithEmailAndPassword(email.trim(), password);
+      await auth.createUserWithEmailAndPassword(email.trim(), password);
       history.push("/home");
     } catch (error) {
       alert(error);

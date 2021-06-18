@@ -11,8 +11,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import useStyles from "./style.js";
 import { withRouter, Redirect } from "react-router";
-import app from "../../base.js";
-import { AuthContext } from "../../Auth.js";
+import { auth } from "../../utils/firebase";
+import { AuthContext } from "../../utils/Auth";
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
 import Copyright from "./Copyrigth";
@@ -28,7 +28,7 @@ const InicioSesion = ({ register, setRegister }) => {
     try {
       console.log(email);
       console.log(password);
-      await app.auth().signInWithEmailAndPassword(email.trim(), password);
+      await auth.signInWithEmailAndPassword(email.trim(), password);
       history.push("/home");
     } catch (error) {
       alert(error);
