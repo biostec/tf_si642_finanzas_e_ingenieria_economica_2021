@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
+import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,11 +14,39 @@ import {
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import { auth, firestore } from "../../utils/firebase";
 
 const CrearFactura = () => {
+  const [ruc, setRuc] = useState("");
+  const [razonSocial, setRazonSocial] = useState("");
+  const [monto, setMonto] = useState("");
+  const [coin, setCoin] = useState("pen");
+  const [nFactura, setNFactura] = useState("");
   const [fechaEmision, setFechaEmision] = useState(new Date());
   const [fechaPago, setFechaPago] = useState(new Date());
-  const [coin, setCoin] = useState("pen");
+
+  const handleSubmit = () => {
+    firestore
+      .collection("facturas")
+      .add({
+        uid: auth.currentUser.uid,
+        ruc: ruc,
+        razonSocial: razonSocial,
+        monto: monto,
+        coin: coin,
+        nFactura: nFactura,
+        fechaEmision: fechaEmision,
+        fechaPago: fechaPago,
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+        alert(error);
+      });
+  };
+
   return (
     <div className="container">
       <CssBaseline />
@@ -29,35 +55,58 @@ const CrearFactura = () => {
       <Container container sm={12} className="mt-4">
         <Grid item="center">
           <Typography variant="h5">Ingresar Factura</Typography>
-          <Grid item md={12}>
-            <FormControl>
-              <InputLabel htmlFor="ruc">RUC de la Empresa </InputLabel>
-              <Input id="ruc" aria-describedby="ruc-helper" />
-              {/* <FormHelperText id="ruc-helper">
-                Coloque el RUC de la empresa deudora
-              </FormHelperText> */}
-            </FormControl>
-          </Grid>
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="ruc"
+            label="RUC de la Empresa "
+            nvalue={ruc}
+            onChange={(e) => {
+              setRuc(e.target.value);
+            }}
+          />
 
           {/* Razon Social */}
-          <Grid item md={12}>
-            <FormControl>
-              <InputLabel htmlFor="razon">Razon Social </InputLabel>
-              <Input id="razon" aria-describedby="razon-helper" />
-              {/* <FormHelperText id="razon-helper">
-                Coloque la Razon Social de la Empresa
-              </FormHelperText> */}
-            </FormControl>
-          </Grid>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="razon-social"
+            label="Razon Social"
+            name="razon-social"
+            value={razonSocial}
+            onChange={(e) => setRazonSocial(e.target.value)}
+          />
 
           {/* RUC de la Empresa */}
-          <Grid item md={12}>
-            <FormControl>
-              <InputLabel htmlFor="my-input">Número de la Factura </InputLabel>
-              <Input id="numero" aria-describedby="numero-helper" />
-              {/* <FormHelperText id="numero-helper">Coloque el número de la factura</FormHelperText> */}
-            </FormControl>
-          </Grid>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="n-factura"
+            label="Número de la Factura"
+            name="n-factura"
+            value={nFactura}
+            onChange={(e) => setNFactura(e.target.value)}
+          />
+
+          {/* Monto */}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="monto"
+            label="Monto"
+            name="monto"
+            value={monto}
+            onChange={(e) => setMonto(e.target.value)}
+          />
 
           {/* Moneda a utilizar */}
           <Grid item md={12} className="mt-4">
@@ -109,7 +158,7 @@ const CrearFactura = () => {
             </Grid>
           </MuiPickersUtilsProvider>
         </Grid>
-        <Button className="my-4" variant="contained">
+        <Button className="my-4" variant="contained" onClick={handleSubmit}>
           Enviar
         </Button>
       </Container>
