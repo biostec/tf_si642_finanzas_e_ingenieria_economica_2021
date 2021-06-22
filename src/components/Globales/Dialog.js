@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -24,22 +24,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({ open, setOpen, category }) {
+export default function FullScreenDialog({
+  open,
+  setOpen,
+  category,
+  facturaSelected,
+  setFacturaSelected,
+}) {
   const classes = useStyles();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
+    setFacturaSelected(false);
     setOpen(false);
   };
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Open full-screen dialog
-      </Button>
+      </Button> */}
       <Dialog
         fullScreen
         open={open}
@@ -63,7 +70,15 @@ export default function FullScreenDialog({ open, setOpen, category }) {
             </Typography>
           </Toolbar>
         </AppBar>
-        {category === "HFacturas" ? <CalcTCEA /> : <div></div>}
+        {category === "HFacturas" ? (
+          <CalcTCEA
+            facturaSelected={facturaSelected}
+            open={open}
+            setOpen={setOpen}
+          />
+        ) : (
+          <div></div>
+        )}
       </Dialog>
     </div>
   );

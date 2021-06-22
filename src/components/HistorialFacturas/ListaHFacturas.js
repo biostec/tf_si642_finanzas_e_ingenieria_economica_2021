@@ -31,6 +31,7 @@ const StyledTableRow = withStyles((theme) => ({
 const ListaHFacturas = () => {
   const [contenedor, setContenedor] = useState(null);
   const [openDialog, setOpenDialog] = useState(true);
+  const [facturaSelected, setFacturaSelected] = useState(null);
 
   useEffect(() => {
     firestore
@@ -78,14 +79,35 @@ const ListaHFacturas = () => {
                     <StyledTableCell align="center">
                       {factura.fechaPago.seconds}
                     </StyledTableCell>
-                    <StyledTableCell align="center">tcea</StyledTableCell>
+                    <StyledTableCell align="center">
+                      {!factura.tcea ? (
+                        <button
+                          onClick={() => {
+                            setFacturaSelected(factura.id);
+                            setOpenDialog(true);
+                          }}
+                        >
+                          Calcular TCEA
+                        </button>
+                      ) : (
+                        <span>{factura.tcea}</span>
+                      )}
+                    </StyledTableCell>
                   </StyledTableRow>
                 );
               })}
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog open={openDialog} setOpen={setOpenDialog} category="HFacturas" />
+      {openDialog && facturaSelected !== null && (
+        <Dialog
+          open={openDialog}
+          setOpen={setOpenDialog}
+          category="HFacturas"
+          facturaSelected={facturaSelected}
+          setFacturaSelected={setFacturaSelected}
+        />
+      )}
     </div>
   );
 };
