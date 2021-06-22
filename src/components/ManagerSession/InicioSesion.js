@@ -24,7 +24,6 @@ const InicioSesion = ({ register, setRegister }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async (event) => {
-    event.preventDefault();
     try {
       console.log(email);
       console.log(password);
@@ -32,6 +31,11 @@ const InicioSesion = ({ register, setRegister }) => {
       history.push("/home");
     } catch (error) {
       alert(error);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleLogin();
     }
   };
 
@@ -42,13 +46,13 @@ const InicioSesion = ({ register, setRegister }) => {
   }
 
   return (
-    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+    <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-        </Avatar>
+        </Avatar> */}
         <Typography component="h1" variant="h5">
-          Inicio Sesión
+          Inicio de Sesión
         </Typography>
 
         <TextField
@@ -73,6 +77,7 @@ const InicioSesion = ({ register, setRegister }) => {
           id="password"
           autoComplete="current-password"
           value={password}
+          onKeyDown={handleKeyDown}
           onChange={(e) => setPassword(e.target.value)}
         />
         <FormControlLabel
@@ -88,7 +93,10 @@ const InicioSesion = ({ register, setRegister }) => {
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={handleLogin}
+          onClick={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
         >
           Confirmar
         </Button>
@@ -104,7 +112,7 @@ const InicioSesion = ({ register, setRegister }) => {
               variant="body2"
               onClick={() => setRegister(!register)}
             >
-              {"No tiene una cuenta? Registrese ahora!"}
+              {"¿No tiene una cuenta? Registrese ahora!"}
             </Link>
           </Grid>
         </Grid>
