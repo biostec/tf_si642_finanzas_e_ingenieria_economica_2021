@@ -44,11 +44,11 @@ const CalcTCEA = ({ facturaSelected }) => {
 
       <div className="row">
         <div className="col-12 col-md-6">
-          {" "}
           <CalcInicial
             state={state}
             handleChange={handleChange}
             setState={setState}
+            facturaSelected={facturaSelected}
           />
         </div>
         <div className="col col-md-6">
@@ -56,6 +56,7 @@ const CalcTCEA = ({ facturaSelected }) => {
             state={state}
             handleChange={handleChange}
             setState={setState}
+            facturaSelected={facturaSelected}
           />
         </div>
       </div>

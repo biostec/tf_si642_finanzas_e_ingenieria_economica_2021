@@ -3,8 +3,10 @@ import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import CrearGastos from "./CrearGastos";
+import ListaCostes from "./ListaCostes";
 
-const CalcFinal = ({ state, handleChange, setState }) => {
+const CalcFinal = ({ state, handleChange, setState, facturaSelected }) => {
   return (
     <div className="mt-4">
       <h3 className="mb-3">Costes / Gastos Finales</h3>
@@ -68,6 +70,12 @@ const CalcFinal = ({ state, handleChange, setState }) => {
           />
         </div>
       </div>
+      <CrearGastos
+        facturaSelected={facturaSelected}
+        type="final"
+        state={state}
+      />
+      <ListaCostes facturaSelected={facturaSelected} type="final" />
     </div>
   );
 };
