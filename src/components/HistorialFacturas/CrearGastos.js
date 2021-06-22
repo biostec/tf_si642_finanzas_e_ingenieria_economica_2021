@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../utils/firebase";
 
-const CrearGastos = ({ facturaSelected, type, state }) => {
+const CrearGastos = ({ facturaSelected, type, state, helper, setHelper }) => {
   const handleSubmit = () => {
     firestore
       .collection("facturas")
@@ -24,6 +24,7 @@ const CrearGastos = ({ facturaSelected, type, state }) => {
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+        setHelper(!helper);
       })
       .catch((error) => {
         console.error("Error adding document: ", error);

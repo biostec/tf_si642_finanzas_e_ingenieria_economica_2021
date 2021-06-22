@@ -71,7 +71,11 @@ export default function FullScreenDialog({
           </Toolbar>
         </AppBar>
         {category === "HFacturas" ? (
-          <CalcTCEA facturaSelected={facturaSelected} />
+          <CalcTCEA
+            facturaSelected={facturaSelected}
+            open={open}
+            setOpen={setOpen}
+          />
         ) : (
           <div></div>
         )}

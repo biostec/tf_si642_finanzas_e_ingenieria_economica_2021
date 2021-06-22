@@ -80,7 +80,7 @@ const ListaHFacturas = () => {
                       {factura.fechaPago.seconds}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.tcea !== null ? (
+                      {!factura.tcea ? (
                         <button
                           onClick={() => {
                             setFacturaSelected(factura.id);
@@ -90,7 +90,7 @@ const ListaHFacturas = () => {
                           Calcular TCEA
                         </button>
                       ) : (
-                        <span>factura.tcea</span>
+                        <span>{factura.tcea}</span>
                       )}
                     </StyledTableCell>
                   </StyledTableRow>

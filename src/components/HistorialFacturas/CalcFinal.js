@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -7,6 +7,8 @@ import CrearGastos from "./CrearGastos";
 import ListaCostes from "./ListaCostes";
 
 const CalcFinal = ({ state, handleChange, setState, facturaSelected }) => {
+  const [helper, setHelper] = useState(false);
+
   return (
     <div className="mt-4">
       <h3 className="mb-3">Costes / Gastos Finales</h3>
@@ -74,8 +76,15 @@ const CalcFinal = ({ state, handleChange, setState, facturaSelected }) => {
         facturaSelected={facturaSelected}
         type="final"
         state={state}
+        helper={helper}
+        setHelper={setHelper}
       />
-      <ListaCostes facturaSelected={facturaSelected} type="final" />
+      <ListaCostes
+        facturaSelected={facturaSelected}
+        type="final"
+        helper={helper}
+        setHelper={setHelper}
+      />
     </div>
   );
 };
