@@ -15,8 +15,10 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import { auth, firestore } from "../../utils/firebase";
+import { useHistory } from "react-router-dom";
 
 const CrearFactura = () => {
+  const history = useHistory();
   const [ruc, setRuc] = useState("");
   const [razonSocial, setRazonSocial] = useState("");
   const [monto, setMonto] = useState("");
@@ -40,6 +42,7 @@ const CrearFactura = () => {
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+        history.push("/historialFacturas");
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
@@ -51,11 +54,11 @@ const CrearFactura = () => {
     <div className="container">
       <CssBaseline />
 
-      {/* RUC de la Empresa */}
       <Container container sm={12} className="mt-4">
         <Grid item="center">
           <Typography variant="h5">Ingresar Factura</Typography>
 
+          {/* RUC de la Empresa */}
           <TextField
             variant="outlined"
             margin="normal"
@@ -63,7 +66,7 @@ const CrearFactura = () => {
             fullWidth
             id="ruc"
             label="RUC de la Empresa "
-            nvalue={ruc}
+            value={ruc}
             onChange={(e) => {
               setRuc(e.target.value);
             }}

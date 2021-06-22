@@ -89,7 +89,7 @@ export default function Header() {
                 onClick={() => history.push("/historialFacturas")}
                 style={{ cursor: "pointer" }}
               >
-                Historial de Productos
+                Historial de Facturas
               </Typography>
 
               <Typography
