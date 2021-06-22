@@ -11,7 +11,6 @@ const ManagerSession = () => {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <React.Fragment>
         {register ? (
           <Registro register={register} setRegister={setRegister} />
@@ -19,6 +18,7 @@ const ManagerSession = () => {
           <InicioSesion register={register} setRegister={setRegister} />
         )}
       </React.Fragment>
+      <Grid item xs={false} sm={4} md={6} className={classes.image} />
     </Grid>
   );
 };
