@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import CalcTCEA from "../HistorialFacturas/CalcTCEA";
+import CalcCartera from "../CarteraFacturas/CalcCartera";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -30,6 +31,8 @@ export default function FullScreenDialog({
   category,
   facturaSelected,
   setFacturaSelected,
+  arrFacturasSelected,
+  setArrFacturasSelected,
 }) {
   const classes = useStyles();
 
@@ -38,7 +41,8 @@ export default function FullScreenDialog({
   // };
 
   const handleClose = () => {
-    setFacturaSelected(false);
+    if (category === "HFacturas") setFacturaSelected(false);
+    else if (category === "CFacturas") setArrFacturasSelected([]);
     setOpen(false);
   };
 
@@ -77,7 +81,11 @@ export default function FullScreenDialog({
             setOpen={setOpen}
           />
         ) : (
-          <div></div>
+          <>
+            {category === "CFacturas" && (
+              <CalcCartera arrFacturasSelected open={open} setOpen={setOpen} />
+            )}
+          </>
         )}
       </Dialog>
     </div>

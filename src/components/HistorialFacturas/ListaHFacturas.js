@@ -30,7 +30,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const ListaHFacturas = () => {
   const [contenedor, setContenedor] = useState(null);
-  const [openDialog, setOpenDialog] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
   const [facturaSelected, setFacturaSelected] = useState(null);
 
   useEffect(() => {
