@@ -31,8 +31,10 @@ export default function FullScreenDialog({
   category,
   facturaSelected,
   setFacturaSelected,
-  arrFacturasSelected,
+  carteraID,
   setArrFacturasSelected,
+  helper,
+  setHelper,
 }) {
   const classes = useStyles();
 
@@ -42,7 +44,10 @@ export default function FullScreenDialog({
 
   const handleClose = () => {
     if (category === "HFacturas") setFacturaSelected(false);
-    else if (category === "CFacturas") setArrFacturasSelected([]);
+    else if (category === "CFacturas") {
+      setHelper(!helper);
+      setArrFacturasSelected([]);
+    }
     setOpen(false);
   };
 
@@ -83,7 +88,11 @@ export default function FullScreenDialog({
         ) : (
           <>
             {category === "CFacturas" && (
-              <CalcCartera arrFacturasSelected open={open} setOpen={setOpen} />
+              <CalcCartera
+                carteraID={carteraID}
+                open={open}
+                setOpen={setOpen}
+              />
             )}
           </>
         )}

@@ -14,6 +14,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import differenceInDays from "date-fns/differenceInDays";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -37,6 +38,8 @@ const ListaCFacturas = ({ modo, setModo }) => {
   const [contenedor, setContenedor] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [arrFacturasSelected, setArrFacturasSelected] = useState([]);
+  const [carteraID, setCarteraID] = useState(null);
+  const [helper, setHelper] = useState(false);
 
   useEffect(() => {
     firestore
@@ -52,27 +55,47 @@ const ListaCFacturas = ({ modo, setModo }) => {
           }))
         );
       });
-  }, []);
+  }, [helper]);
 
-  const updateChecbox = (index) => (e) => {
+  const CrearCartera = () => {
+    firestore
+      .collection("carteras")
+      .add({
+        uid: auth.currentUser.uid,
+        facturas: arrFacturasSelected,
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+        setCarteraID(docRef.id);
+        setOpenDialog(!openDialog);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+        alert(error);
+      });
+  };
+
+  const updateCheckbox = (index) => (e) => {
+    // Añadir / Eliminar selección en el arreglo original
     let newArray = [...contenedor];
     newArray[index].selected = e.target.checked;
     setContenedor(newArray);
-  };
 
-  const handleExportFacturas = () => {
-    let newArray = [];
-    contenedor.forEach((factura, index) => {
-      if (factura.selected) newArray.push(factura.id);
-    });
-    setArrFacturasSelected([...arrFacturasSelected, newArray]);
-    setOpenDialog(!openDialog);
+    // Actualizar los elementos del arreglo de facturas seleccionadas
+    let temp = [];
+    for (let i = 0; i < contenedor.length; i++) {
+      if (contenedor[i].selected) {
+        temp.push(contenedor[i].id);
+      }
+    }
+    setArrFacturasSelected(temp);
   };
 
   return (
     <div className="container mt-4">
-      <div className="col-3">
+      <div className="col-3 mb-3">
         <IconButton
+          className="p-0"
           aria-label="volver"
           onClick={() => {
             setModo("listar");
@@ -82,20 +105,26 @@ const ListaCFacturas = ({ modo, setModo }) => {
           Volver
         </IconButton>
       </div>
+      <div>
+        <h3>Cartera de Facturas</h3>
+      </div>
       <div className="row mb-3">
-        <div className="col-12 col-md-8">
-          <h4>Empieza a crear tu cartera de Facturas</h4>
-          <h6>Selecciona tus facturas</h6>
-        </div>
+        <div className="col-12 col-md-8"></div>
         <div className="col-12 col-md-4">
           <Button
             variant="contained"
             size="large"
             color="primary"
-            onClick={handleExportFacturas}
+            onClick={CrearCartera}
+            disabled={arrFacturasSelected.length === 0}
           >
             CALCULA TU CARTERA
           </Button>
+          {arrFacturasSelected.length === 0 && (
+            <FormHelperText className="text-danger">
+              *Selecciona tus facturas
+            </FormHelperText>
+          )}
         </div>
       </div>
       <TableContainer component={Paper}>
@@ -130,7 +159,7 @@ const ListaCFacturas = ({ modo, setModo }) => {
                     <StyledTableCell align="center">
                       <Checkbox
                         checked={factura.selected}
-                        onChange={updateChecbox(index)}
+                        onChange={updateCheckbox(index)}
                         name="selectedCheckBox"
                         inputProps={{ "aria-label": "checkbox" }}
                       />
@@ -141,13 +170,15 @@ const ListaCFacturas = ({ modo, setModo }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {openDialog && arrFacturasSelected !== [] && (
+      {openDialog && arrFacturasSelected !== [] && carteraID !== null && (
         <Dialog
           open={openDialog}
           setOpen={setOpenDialog}
           category="CFacturas"
-          arrFacturasSelected={arrFacturasSelected}
+          carteraID={carteraID}
           setArrFacturasSelected={setArrFacturasSelected}
+          helper={helper}
+          setHelper={setHelper}
         />
       )}
     </div>
