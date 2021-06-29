@@ -6,7 +6,14 @@ import Select from "@material-ui/core/Select";
 import CrearGastos from "./CrearGastos";
 import ListaCostes from "./ListaCostes";
 
-const CalcFinal = ({ state, handleChange, setState, facturaSelected }) => {
+const CalcFinal = ({
+  state,
+  handleChange,
+  setState,
+  facturaSelected,
+  cFinales,
+  setCFinales,
+}) => {
   const [helper, setHelper] = useState(false);
 
   return (
@@ -84,6 +91,8 @@ const CalcFinal = ({ state, handleChange, setState, facturaSelected }) => {
         type="final"
         helper={helper}
         setHelper={setHelper}
+        cCostos={cFinales}
+        setCCostos={setCFinales}
       />
     </div>
   );

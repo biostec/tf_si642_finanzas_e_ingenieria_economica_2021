@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "../../utils/firebase";
 import TextField from "@material-ui/core/TextField";
 
-const DatosFactura = ({ facturaSelected }) => {
-  const [contenedor, setContenedor] = useState(null);
-
+const DatosFactura = ({ facturaSelected, datosFactura, setDatosFactura }) => {
   useEffect(() => {
     firestore
       .collection("facturas")
@@ -12,7 +10,7 @@ const DatosFactura = ({ facturaSelected }) => {
       .get()
       .then((querySnapShot) => {
         console.log(querySnapShot.data());
-        setContenedor(querySnapShot.data());
+        setDatosFactura(querySnapShot.data());
       });
   }, [facturaSelected]);
   return (
@@ -27,8 +25,12 @@ const DatosFactura = ({ facturaSelected }) => {
         id="fechaEmision"
         label="Fecha de Emision"
         value={
-          contenedor !== null && contenedor.fechaEmision.seconds
-            ? `${contenedor.fechaEmision.seconds}`
+          datosFactura !== null && datosFactura.fechaEmision
+            ? `${new Date(datosFactura.fechaEmision).getDate()}/${new Date(
+                datosFactura.fechaEmision
+              ).getMonth()}/${new Date(
+                datosFactura.fechaEmision
+              ).getFullYear()}`
             : ``
         }
         name="fechaEmision"
@@ -43,8 +45,10 @@ const DatosFactura = ({ facturaSelected }) => {
         id="fechaPago"
         label="Fecha de Pago"
         value={
-          contenedor !== null && contenedor.fechaPago.seconds !== null
-            ? `${contenedor.fechaPago.seconds}`
+          datosFactura !== null && datosFactura.fechaPago !== null
+            ? `${new Date(datosFactura.fechaPago).getDate()}/${new Date(
+                datosFactura.fechaPago
+              ).getMonth()}/${new Date(datosFactura.fechaPago).getFullYear()}`
             : ``
         }
         name="fechaPago"
@@ -59,8 +63,8 @@ const DatosFactura = ({ facturaSelected }) => {
         id="monto"
         label="Monto"
         value={
-          contenedor !== null && contenedor.monto != null
-            ? `${contenedor.monto}`
+          datosFactura !== null && datosFactura.monto != null
+            ? `${datosFactura.monto}`
             : ``
         }
         name="monto"
@@ -75,9 +79,7 @@ const DatosFactura = ({ facturaSelected }) => {
         id="retencion"
         label="Retencion"
         value={
-          contenedor !== null && contenedor.retencion !== null
-            ? `${contenedor.retencion}`
-            : ``
+          datosFactura !== null && datosFactura.retencion !== null ? `0` : ``
         }
         name="Retencion"
       />

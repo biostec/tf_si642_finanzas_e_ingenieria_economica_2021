@@ -6,7 +6,14 @@ import Select from "@material-ui/core/Select";
 import CrearGastos from "./CrearGastos";
 import ListaCostes from "./ListaCostes";
 
-const CalcInicial = ({ state, handleChange, setState, facturaSelected }) => {
+const CalcInicial = ({
+  state,
+  handleChange,
+  setState,
+  facturaSelected,
+  cIniciales,
+  setCIniciales,
+}) => {
   const [helper, setHelper] = useState(false);
 
   return (
@@ -93,6 +100,8 @@ const CalcInicial = ({ state, handleChange, setState, facturaSelected }) => {
         type="inicial"
         helper={helper}
         setHelper={setHelper}
+        cCostos={cIniciales}
+        setCCostos={setCIniciales}
       />
     </div>
   );

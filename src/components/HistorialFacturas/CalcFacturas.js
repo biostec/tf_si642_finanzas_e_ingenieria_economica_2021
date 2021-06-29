@@ -76,9 +76,9 @@ const CalcFacturas = ({ state, handleChange, setState }) => {
                 label="Efectiva"
               />
               <FormControlLabel
-                value="anual"
+                value="nominal"
                 control={<Radio />}
-                label="Anual"
+                label="Nominal"
               />
             </RadioGroup>
           </FormControl>
@@ -112,6 +112,7 @@ const CalcFacturas = ({ state, handleChange, setState }) => {
                 ...state,
                 fechaDescuento: e,
               });
+              console.log(e);
             }}
             format="dd/MM/yyyy"
             openTo="year"

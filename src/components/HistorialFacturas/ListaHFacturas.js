@@ -43,7 +43,7 @@ const ListaHFacturas = () => {
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
       });
-  }, []);
+  }, [openDialog]);
 
   return (
     <div className="container mt-3">
@@ -64,11 +64,15 @@ const ListaHFacturas = () => {
           <TableBody>
             {contenedor &&
               contenedor.map((factura) => {
-                console.log(factura);
+                console.log(new Date(1618183980000));
                 return (
                   <StyledTableRow key={factura.id}>
                     <StyledTableCell align="center">
-                      {factura.fechaEmision.seconds}
+                      {`${new Date(factura.fechaEmision).getDate()}/${new Date(
+                        factura.fechaEmision
+                      ).getMonth()}/${new Date(
+                        factura.fechaEmision
+                      ).getFullYear()} `}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {factura.razonSocial}
@@ -77,7 +81,11 @@ const ListaHFacturas = () => {
                       factura.coin === "pen" ? `S/` : `$`
                     }  ${factura.monto}`}</StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.fechaPago.seconds}
+                      {`${new Date(factura.fechaPago).getDate()}/${new Date(
+                        factura.fechaPago
+                      ).getMonth()}/${new Date(
+                        factura.fechaPago
+                      ).getFullYear()} `}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {!factura.tcea ? (
@@ -90,7 +98,7 @@ const ListaHFacturas = () => {
                           Calcular TCEA
                         </button>
                       ) : (
-                        <span>{factura.tcea}</span>
+                        <span>{`${parseFloat(factura.tcea).toFixed(7)}%`}</span>
                       )}
                     </StyledTableCell>
                   </StyledTableRow>

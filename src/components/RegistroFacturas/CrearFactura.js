@@ -24,8 +24,8 @@ const CrearFactura = () => {
   const [monto, setMonto] = useState("");
   const [coin, setCoin] = useState("pen");
   const [nFactura, setNFactura] = useState("");
-  const [fechaEmision, setFechaEmision] = useState(new Date());
-  const [fechaPago, setFechaPago] = useState(new Date());
+  const [fechaEmision, setFechaEmision] = useState(new Date(Date.now()));
+  const [fechaPago, setFechaPago] = useState(new Date(Date.now()));
 
   const handleSubmit = () => {
     firestore
@@ -37,8 +37,8 @@ const CrearFactura = () => {
         monto: monto,
         coin: coin,
         nFactura: nFactura,
-        fechaEmision: fechaEmision,
-        fechaPago: fechaPago,
+        fechaEmision: fechaEmision.getTime(),
+        fechaPago: fechaPago.getTime(),
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -151,7 +151,7 @@ const CrearFactura = () => {
               <FormLabel component="legend">Fecha de pago</FormLabel>
               <DatePicker
                 autoOk
-                disableFuture
+                //disableFuture
                 value={fechaPago}
                 views={["year", "month", "date"]}
                 onChange={setFechaPago}
