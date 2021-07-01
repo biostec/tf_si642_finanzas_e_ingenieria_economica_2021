@@ -52,7 +52,7 @@ const ListaHFacturas = () => {
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Fecha de Emision</StyledTableCell>
+              <StyledTableCell align="center">Fecha de Emision</StyledTableCell>
               <StyledTableCell align="center">
                 Nombre de la Empresa
               </StyledTableCell>

@@ -10,7 +10,7 @@ import Select from "@material-ui/core/Select";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
-const CalcTasa = ({ state, handleChange, setState }) => {
+const CalcTasa = ({ state, handleChange, setState, carteraCalculated }) => {
   return (
     <div className="mt-5">
       {/* <h3 className="mb-3">Calculador de Cartera</h3> */}
@@ -18,6 +18,7 @@ const CalcTasa = ({ state, handleChange, setState }) => {
       <FormControl variant="outlined" className="d-block mb-3">
         <InputLabel htmlFor="outlined-age-native-simple">Dias Año</InputLabel>
         <Select
+          disabled={carteraCalculated}
           native
           value={state.diasAnio}
           onChange={handleChange}
@@ -39,6 +40,7 @@ const CalcTasa = ({ state, handleChange, setState }) => {
           Plazo de Tasa
         </InputLabel>
         <Select
+          disabled={carteraCalculated}
           native
           value={state.plazo}
           onChange={handleChange}
@@ -71,11 +73,13 @@ const CalcTasa = ({ state, handleChange, setState }) => {
               onChange={handleChange}
             >
               <FormControlLabel
+                disabled={carteraCalculated}
                 value="efectiva"
                 control={<Radio />}
                 label="Efectiva"
               />
               <FormControlLabel
+                disabled={carteraCalculated}
                 value="anual"
                 control={<Radio />}
                 label="Anual"
@@ -86,6 +90,7 @@ const CalcTasa = ({ state, handleChange, setState }) => {
         <div className="col">
           {/*Tasa Efectiva */}
           <TextField
+            disabled={carteraCalculated}
             variant="outlined"
             margin="normal"
             required
@@ -104,6 +109,7 @@ const CalcTasa = ({ state, handleChange, setState }) => {
         <div className="mt-4">
           <FormLabel component="legend">Fecha de Descuento</FormLabel>
           <DatePicker
+            disabled={carteraCalculated}
             autoOk
             value={state.fechaDescuento}
             views={["year", "month", "date"]}

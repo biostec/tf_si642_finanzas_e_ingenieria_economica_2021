@@ -6,7 +6,15 @@ import Select from "@material-ui/core/Select";
 import CrearGastos from "./CrearGastos";
 import ListaCostes from "./ListaCostes";
 
-const CalcFinal = ({ state, handleChange, setState, carteraID }) => {
+const CalcFinal = ({
+  state,
+  handleChange,
+  setState,
+  carteraID,
+  cFinales,
+  setCFinales,
+  carteraCalculated,
+}) => {
   const [helper, setHelper] = useState(false);
 
   return (
@@ -18,6 +26,7 @@ const CalcFinal = ({ state, handleChange, setState, carteraID }) => {
           Motivo Final Tipo
         </InputLabel>
         <Select
+          disabled={carteraCalculated}
           native
           value={state.MotivoFinalTipo}
           onChange={handleChange}
@@ -42,6 +51,7 @@ const CalcFinal = ({ state, handleChange, setState, carteraID }) => {
               Motivo Final Valor
             </InputLabel>
             <Select
+              disabled={carteraCalculated}
               native
               value={state.motivoFinalValor}
               onChange={handleChange}
@@ -60,6 +70,7 @@ const CalcFinal = ({ state, handleChange, setState, carteraID }) => {
         <div className="col">
           {/* Motivo Moneda */}
           <TextField
+            disabled={carteraCalculated}
             variant="outlined"
             margin="normal"
             required
@@ -78,8 +89,17 @@ const CalcFinal = ({ state, handleChange, setState, carteraID }) => {
         helper={helper}
         setHelper={setHelper}
         carteraID={carteraID}
+        carteraCalculated={carteraCalculated}
       />
-      <ListaCostes type="final" helper={helper} setHelper={setHelper} />
+      <ListaCostes
+        carteraID={carteraID}
+        type="final"
+        helper={helper}
+        setHelper={setHelper}
+        cCostos={cFinales}
+        setCCostos={setCFinales}
+        carteraCalculated={carteraCalculated}
+      />
     </div>
   );
 };

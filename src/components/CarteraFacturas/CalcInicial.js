@@ -6,7 +6,15 @@ import Select from "@material-ui/core/Select";
 import CrearGastos from "./CrearGastos";
 import ListaCostes from "./ListaCostes";
 
-const CalcInicial = ({ state, handleChange, setState, carteraID }) => {
+const CalcInicial = ({
+  state,
+  handleChange,
+  setState,
+  carteraID,
+  cIniciales,
+  setCIniciales,
+  carteraCalculated,
+}) => {
   const [helper, setHelper] = useState(false);
 
   return (
@@ -18,6 +26,7 @@ const CalcInicial = ({ state, handleChange, setState, carteraID }) => {
           Motivo Inicial Tipo
         </InputLabel>
         <Select
+          disabled={carteraCalculated}
           native
           value={state.MotivoInicialTipo}
           onChange={handleChange}
@@ -51,6 +60,7 @@ const CalcInicial = ({ state, handleChange, setState, carteraID }) => {
               Motivo Inicial Valor
             </InputLabel>
             <Select
+              disabled={carteraCalculated}
               native
               value={state.motivoInicialValor}
               onChange={handleChange}
@@ -69,6 +79,7 @@ const CalcInicial = ({ state, handleChange, setState, carteraID }) => {
         <div className="col">
           {/* Motivo Moneda */}
           <TextField
+            disabled={carteraCalculated}
             variant="outlined"
             margin="normal"
             required
@@ -87,8 +98,17 @@ const CalcInicial = ({ state, handleChange, setState, carteraID }) => {
         helper={helper}
         setHelper={setHelper}
         carteraID={carteraID}
+        carteraCalculated={carteraCalculated}
       />
-      <ListaCostes type="inicial" helper={helper} setHelper={setHelper} />
+      <ListaCostes
+        carteraCalculated={carteraCalculated}
+        carteraID={carteraID}
+        type="inicial"
+        helper={helper}
+        setHelper={setHelper}
+        cCostos={cIniciales}
+        setCCostos={setCIniciales}
+      />
     </div>
   );
 };

@@ -3,7 +3,14 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Button from "@material-ui/core/Button";
 import { firestore } from "../../utils/firebase";
 
-const CrearGastos = ({ carteraID, type, state, helper, setHelper }) => {
+const CrearGastos = ({
+  carteraID,
+  type,
+  state,
+  helper,
+  setHelper,
+  carteraCalculated,
+}) => {
   const handleSubmit = () => {
     firestore
       .collection("carteras")
@@ -33,14 +40,16 @@ const CrearGastos = ({ carteraID, type, state, helper, setHelper }) => {
   };
   return (
     <div>
-      <Button
-        variant="contained"
-        color="default"
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={handleSubmit}
-      >
-        Añadir
-      </Button>
+      {!carteraCalculated && (
+        <Button
+          variant="contained"
+          color="default"
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={handleSubmit}
+        >
+          Añadir
+        </Button>
+      )}
     </div>
   );
 };

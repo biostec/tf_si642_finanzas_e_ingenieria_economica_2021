@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 //import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,6 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import CalcTCEA from "../HistorialFacturas/CalcTCEA";
 import CalcCartera from "../CarteraFacturas/CalcCartera";
+import { firestore } from "../../utils/firebase";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -37,6 +38,7 @@ export default function FullScreenDialog({
   setHelper,
 }) {
   const classes = useStyles();
+  const [carteraCalculated, setCarteraCalculated] = useState(false);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
@@ -47,8 +49,23 @@ export default function FullScreenDialog({
     else if (category === "CFacturas") {
       setHelper(!helper);
       setArrFacturasSelected([]);
+      if (carteraCalculated === false) handleDelete();
     }
     setOpen(false);
+  };
+
+  // Eliminar cartera, sino se calcula (¿le dio click en el boton calcular?)
+  const handleDelete = () => {
+    firestore
+      .collection("carteras")
+      .doc(carteraID)
+      .delete()
+      .then(() => {
+        //setHelper(!helper);
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
   };
 
   return (
@@ -92,6 +109,8 @@ export default function FullScreenDialog({
                 carteraID={carteraID}
                 open={open}
                 setOpen={setOpen}
+                carteraCalculated={carteraCalculated}
+                setCarteraCalculated={setCarteraCalculated}
               />
             )}
           </>

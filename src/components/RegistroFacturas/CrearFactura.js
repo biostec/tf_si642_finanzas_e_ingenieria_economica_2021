@@ -105,7 +105,7 @@ const CrearFactura = () => {
             required
             fullWidth
             id="monto"
-            label="Monto"
+            label="Valor nominal"
             name="monto"
             value={monto}
             onChange={(e) => setMonto(e.target.value)}
