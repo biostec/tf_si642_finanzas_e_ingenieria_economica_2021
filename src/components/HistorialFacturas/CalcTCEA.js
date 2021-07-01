@@ -105,7 +105,7 @@ const CalcTCEA = ({ facturaSelected, open, setOpen }) => {
         vReci +
         parseFloat(vNeto) -
         parseFloat(arrCI[i].motivoMonto) -
-        parseFloat(r);
+        parseFloat(datosFactura.retencion);
       console.log(vReci);
     }
     console.log("Valor recibido", vReci);
@@ -117,7 +117,7 @@ const CalcTCEA = ({ facturaSelected, open, setOpen }) => {
         vEntre +
         parseFloat(datosFactura.monto) +
         parseFloat(arrCF[i].motivoMonto) -
-        parseFloat(r);
+        parseFloat(datosFactura.retencion);
       console.log(vEntre);
     }
     console.log("Valor Entregado", vEntre);

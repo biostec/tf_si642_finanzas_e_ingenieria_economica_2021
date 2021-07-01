@@ -179,7 +179,7 @@ const CalcCartera = ({
         vReci +
         parseFloat(vNeto) -
         parseFloat(arrCI[i].motivoMonto) -
-        parseFloat(r);
+        parseFloat(datosFactura.retencion);
       console.log(vReci);
     }
     console.log("Valor recibido", vReci);
@@ -191,7 +191,7 @@ const CalcCartera = ({
         vEntre +
         parseFloat(datosFactura.monto) +
         parseFloat(arrCF[i].motivoMonto) -
-        parseFloat(r);
+        parseFloat(datosFactura.retencion);
       console.log(vEntre);
     }
     console.log("Valor Entregado", vEntre);
@@ -208,7 +208,7 @@ const CalcCartera = ({
       valorEntregado: vEntre,
       arrCI: vReci - vNeto,
       arrCF: vEntre - datosFactura.monto,
-      r: 0,
+      r: datosFactura.retencion,
       tcea: tempTcea,
       TEfectivaPorc: tef,
       dias,

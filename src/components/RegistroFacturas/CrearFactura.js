@@ -24,6 +24,7 @@ const CrearFactura = () => {
   const [monto, setMonto] = useState("");
   const [coin, setCoin] = useState("pen");
   const [nFactura, setNFactura] = useState("");
+  const [retencion, setRetencion] = useState("");
   const [fechaEmision, setFechaEmision] = useState(new Date(Date.now()));
   const [fechaPago, setFechaPago] = useState(new Date(Date.now()));
 
@@ -39,6 +40,7 @@ const CrearFactura = () => {
         nFactura: nFactura,
         fechaEmision: fechaEmision.getTime(),
         fechaPago: fechaPago.getTime(),
+        retencion,
       })
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -109,6 +111,19 @@ const CrearFactura = () => {
             name="monto"
             value={monto}
             onChange={(e) => setMonto(e.target.value)}
+          />
+
+          {/* Monto */}
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="retencion"
+            label="Retencion"
+            name="retencion"
+            value={retencion}
+            onChange={(e) => setRetencion(e.target.value)}
           />
 
           {/* Moneda a utilizar */}
