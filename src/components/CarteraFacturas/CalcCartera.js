@@ -55,6 +55,7 @@ const CalcCartera = ({
       .then((querySnapShot) => {
         setCartera(querySnapShot.data());
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Actualizar Cartera

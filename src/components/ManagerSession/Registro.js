@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router";
 import { auth, firestore } from "../../utils/firebase";
 import Button from "@material-ui/core/Button";

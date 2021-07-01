@@ -15,7 +15,7 @@ const InfoBasica = () => {
       .where("uid", "==", auth.currentUser.uid)
       .get()
       .then((result) => {
-        result.docs.map((doc) => {
+        result.docs.forEach((doc) => {
           setDataUser(doc.data());
         });
       });

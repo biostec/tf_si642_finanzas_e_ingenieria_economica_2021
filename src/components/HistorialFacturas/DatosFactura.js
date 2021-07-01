@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { firestore } from "../../utils/firebase";
 import TextField from "@material-ui/core/TextField";
 
@@ -12,6 +12,7 @@ const DatosFactura = ({ facturaSelected, datosFactura, setDatosFactura }) => {
         console.log(querySnapShot.data());
         setDatosFactura(querySnapShot.data());
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facturaSelected]);
   return (
     <div>

@@ -131,6 +131,7 @@ const CalcTCEA = ({ facturaSelected, open, setOpen }) => {
 
   useEffect(() => {
     if (tcea !== null) handleCalcTCEA();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tcea]);
 
   return (

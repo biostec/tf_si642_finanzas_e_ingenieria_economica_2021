@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { firestore } from "../../utils/firebase";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -29,6 +29,7 @@ const ListaCostes = ({
           querySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         );
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [helper]);
 
   const handleDelete = (gastoId) => {
