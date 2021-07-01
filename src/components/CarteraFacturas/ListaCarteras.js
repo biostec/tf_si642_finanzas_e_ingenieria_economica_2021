@@ -16,7 +16,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#e3ae20",
     color: theme.palette.common.white,
   },
   body: {
@@ -52,9 +52,6 @@ const ListaCarteras = ({ modo, setModo }) => {
 
   return (
     <div>
-      <div>
-        <h3>Lista Cartera de Facturas</h3>
-      </div>
       <div className="row mb-3 m-0">
         <div className="col-12 col-md-8"></div>
         <div className="col-12 col-md-4">
@@ -64,29 +61,24 @@ const ListaCarteras = ({ modo, setModo }) => {
             color="primary"
             onClick={() => setModo("crear")}
           >
-            Añadir Cartera
+            Crear Cartera
           </Button>
         </div>
       </div>
+      <div>
+        <h3>Historial</h3>
+      </div>
+
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">N°</StyledTableCell>
-              <StyledTableCell align="center">Fecha Emisión</StyledTableCell>
-              <StyledTableCell align="center">Val. Nom.</StyledTableCell>
-              <StyledTableCell align="center">Fecha Venc.</StyledTableCell>
-              <StyledTableCell align="center">Días</StyledTableCell>
-              <StyledTableCell align="center">Retención</StyledTableCell>
-              <StyledTableCell align="center">TE%</StyledTableCell>
-              <StyledTableCell align="center">d%</StyledTableCell>
-              <StyledTableCell align="center">Descuento</StyledTableCell>
-              <StyledTableCell align="center">Costo Ini.</StyledTableCell>
-              <StyledTableCell align="center">Costo Fin.</StyledTableCell>
-              <StyledTableCell align="center">Val. Neto</StyledTableCell>
-              <StyledTableCell align="center">Val. Rec.</StyledTableCell>
-              <StyledTableCell align="center">Val. Ent.</StyledTableCell>
-              <StyledTableCell align="center">TCEA</StyledTableCell>
+              <StyledTableCell align="center">Nombre</StyledTableCell>
+              <StyledTableCell align="center">
+                Valor Total a Recibir
+              </StyledTableCell>
+              <StyledTableCell align="center">TCEA Cartera</StyledTableCell>
+              <StyledTableCell align="center">IGV</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -95,9 +87,17 @@ const ListaCarteras = ({ modo, setModo }) => {
                 return (
                   <StyledTableRow key={cartera.id}>
                     <StyledTableCell align="center">
-                      {index + 1}
+                      {cartera.nombre}
                     </StyledTableCell>
-                    <StyledTableCell align="center"></StyledTableCell>
+                    <StyledTableCell align="center">
+                      {`S/${parseFloat(cartera.totalRecibido).toFixed(2)}`}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {`${parseFloat(cartera.tcea * 100).toFixed(7)}%`}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {`S/${parseFloat(cartera.totalDescuento * 0.18)}`}
+                    </StyledTableCell>
                   </StyledTableRow>
                 );
               })}

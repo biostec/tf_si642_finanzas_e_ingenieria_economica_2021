@@ -129,9 +129,9 @@ export default function Header() {
                 open={open}
                 onClose={handleClose}
               >
-                <Link to={`/perfil`}>
+                {/* <Link to={`/perfil`}>
                   <MenuItem onClick={handleClose}>Perfil</MenuItem>
-                </Link>
+                </Link> */}
                 <MenuItem onClick={handleChange}>Cerrar Sesion</MenuItem>
               </Menu>
             </React.Fragment>

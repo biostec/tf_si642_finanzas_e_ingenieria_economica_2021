@@ -4,6 +4,7 @@ import Registro from "../../components/ManagerSession/Registro";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useStyles from "./../../components/ManagerSession/style.js";
+import imagen from "../../utils/bienvenida.jpg";
 
 const ManagerSession = () => {
   const classes = useStyles();
@@ -18,7 +19,15 @@ const ManagerSession = () => {
           <InicioSesion register={register} setRegister={setRegister} />
         )}
       </React.Fragment>
-      <Grid item xs={false} sm={4} md={6} className={classes.image} />
+      <Grid item xs={false} md={6} className="100vh">
+        <div className="row h-100">
+          <img
+            src={imagen}
+            alt="imagen1"
+            className=" mx-auto d-block align-self-center p-5"
+          />
+        </div>
+      </Grid>
     </Grid>
   );
 };

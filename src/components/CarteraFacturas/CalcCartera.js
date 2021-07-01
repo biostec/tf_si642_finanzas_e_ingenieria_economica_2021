@@ -7,6 +7,13 @@ import { firestore } from "../../utils/firebase";
 import Button from "@material-ui/core/Button";
 import differenceInDays from "date-fns/differenceInCalendarDays";
 
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 const CalcCartera = ({
   carteraID,
   open,
@@ -19,6 +26,8 @@ const CalcCartera = ({
   const [facturas, setFacturas] = useState(null);
   const [detalleFacturas, setDetalleFacturas] = useState(null);
   const [cartera, setCartera] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [nameCartera, setNameCartera] = useState("");
   const [state, setState] = useState({
     diasAnio: "",
     plazo: "",
@@ -49,27 +58,30 @@ const CalcCartera = ({
   }, []);
 
   //Actualizar Cartera
-  const update_cartera = () => {
+  const update_cartera = (tcea, totalRecibido, totalDescuento) => {
     firestore
       .collection("carteras")
       .doc(carteraID)
       .update({
-        tcea: "Insertar el resultado de la operación",
-        diasAnio: state.diasAnio,
-        plazo: state.plazo,
-        tasa: state.tasa,
-        tipoTasa: state.tipoTasa,
-        fechaDescuento: state.fechaDescuento,
-        motivoInicialTipo: state.motivoInicialTipo,
-        motivoInicialMonto: state.motivoInicialMonto,
-        motivoInicialValor: state.motivoInicialValor,
-        motivoFinalTipo: state.motivoFinalTipo,
-        motivoFinalMonto: state.motivoFinalMonto,
-        motivoFinalValor: state.motivoFinalValor,
+        tcea,
+        totalRecibido,
+        totalDescuento,
+        nombre: nameCartera,
+        // diasAnio: state.diasAnio,
+        // plazo: state.plazo,
+        // tasa: state.tasa,
+        // tipoTasa: state.tipoTasa,
+        // fechaDescuento: state.fechaDescuento,
+        // motivoInicialTipo: state.motivoInicialTipo,
+        // motivoInicialMonto: state.motivoInicialMonto,
+        // motivoInicialValor: state.motivoInicialValor,
+        // motivoFinalTipo: state.motivoFinalTipo,
+        // motivoFinalMonto: state.motivoFinalMonto,
+        // motivoFinalValor: state.motivoFinalValor,
       })
       .then(() => {
         console.log("Document successfully written!");
-        setOpen(!open);
+        //setOpen(!open);
       })
       .catch((error) => {
         console.error("Error writing document: ", error);
@@ -264,6 +276,8 @@ const CalcCartera = ({
       totalRecibido: sumVR,
       totalDescuento: sumDesc,
     });
+
+    update_cartera(tcea, sumVR, sumDesc);
   };
 
   return (
@@ -309,8 +323,7 @@ const CalcCartera = ({
           color="primary"
           disabled={carteraCalculated}
           onClick={() => {
-            setCarteraCalculated(true);
-            calcTCEA_Factura();
+            setOpenForm(!openForm);
           }}
         >
           CALCULAR
@@ -324,6 +337,52 @@ const CalcCartera = ({
             state={state}
             facturas={detalleFacturas}
           />
+        )}
+      </div>
+      <div>
+        {openForm && (
+          <Dialog
+            open={open}
+            onClose={() => setOpenForm(!openForm)}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle id="form-dialog-title">
+              Vamos a Guardar tu Cartera
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Queremos ayudarte a que puedas revisar el cálculo de tu cartera
+                de facturas en cualquier momento.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Nombre de la Cartera"
+                type="text"
+                fullWidth
+                onChange={(e) => {
+                  setNameCartera(e.target.value);
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpenForm(!openForm)} color="primary">
+                Cancel
+              </Button>
+              <Button
+                disabled={nameCartera === ""}
+                onClick={() => {
+                  setOpenForm(!openForm);
+                  setCarteraCalculated(true);
+                  calcTCEA_Factura();
+                }}
+                color="primary"
+              >
+                Guardar
+              </Button>
+            </DialogActions>
+          </Dialog>
         )}
       </div>
     </div>

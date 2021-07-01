@@ -46,7 +46,7 @@ const InicioSesion = ({ register, setRegister }) => {
   }
 
   return (
-    <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+    <Grid item md={6} component={Paper} elevation={6} square>
       <div className={classes.paper}>
         {/* <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -101,11 +101,11 @@ const InicioSesion = ({ register, setRegister }) => {
           Confirmar
         </Button>
         <Grid container>
-          <Grid item xs>
+          {/* <Grid item xs>
             <Link href="#" variant="body2">
               Olvido Contraseña?
             </Link>
-          </Grid>
+          </Grid> */}
           <Grid item>
             <Link
               href="#"

@@ -1,21 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import InfoBasica from "../../components/Home/InfoBasica";
+import calculadora from "../../utils/calc.jpg";
+import Noticias from "../../components/Home/Noticias";
+
+const Image = () => {
+  return (
+    <div className="col-12 col-md-6 align-self-center">
+      <div className="container h-100">
+        <div className=" my-5 px-5 py-5  h-50">
+          <div className="mt-5">
+            <img src={calculadora} alt="calculadora" className="mw-100" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
   return (
-    <div className="row ">
-      <div
-        className="col-12 col-md-6 bg-warning align-self-center"
-        style={{ height: "100vh" }}
-      >
-        Ultimos movimientos
+    <div className="container">
+      <div className="row">
+        <InfoBasica />
+        <Image />
       </div>
-      <div
-        className="col-12 col-md-6 bg-info align-self-center"
-        style={{ height: "100vh" }}
-      >
-        <Link to="registroFacturas">Registrar Facturas</Link>
-      </div>
+      <Noticias />
     </div>
   );
 };

@@ -123,8 +123,16 @@ const CrearFactura = () => {
                   setCoin(event.target.value);
                 }}
               >
-                <FormControlLabel value="pen" control={<Radio />} label="PEN" />
-                <FormControlLabel value="usd" control={<Radio />} label="USD" />
+                <FormControlLabel
+                  value="pen"
+                  control={<Radio />}
+                  label="Soles"
+                />
+                <FormControlLabel
+                  value="usd"
+                  control={<Radio />}
+                  label="Dólares"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>

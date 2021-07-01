@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,10 +8,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import differenceInDays from "date-fns/differenceInDays";
+import ResultadoCartera from "./ResultadoCartera";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#e3ae20",
     color: theme.palette.common.white,
   },
   body: {
@@ -31,10 +32,7 @@ const MostrarTCEA = ({ facturas, cartera, state }) => {
   return (
     <div class="container">
       <div className="mb-2">
-        <h5>Resultados</h5>
-        <p>VR: {state.totalRecibido}</p>
-        <p>TCEA: {parseFloat(state.tcea * 100).toFixed(7)}%</p>
-        <p>IGV: {parseFloat(state.totalDescuento * 0.18)}</p>
+        <ResultadoCartera state={state} />
       </div>
       <div className="mb-5">
         <TableContainer component={Paper}>
@@ -102,22 +100,34 @@ const MostrarTCEA = ({ facturas, cartera, state }) => {
                       {parseFloat(factura.tasaDesc * 100).toFixed(7)}%
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.descuento.toFixed(3)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.descuento.toFixed(3)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.arrCI.toFixed(2)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.arrCI.toFixed(2)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.arrCF.toFixed(2)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.arrCF.toFixed(2)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.valorNeto.toFixed(2)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.valorNeto.toFixed(2)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.valorRecibido.toFixed(2)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.valorRecibido.toFixed(2)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {factura.valorEntregado.toFixed(2)}
+                      {`${
+                        factura.coin === "pen" ? `S/` : `$`
+                      } ${factura.valorEntregado.toFixed(2)}`}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {parseFloat(factura.tcea * 100).toFixed(7)}%
