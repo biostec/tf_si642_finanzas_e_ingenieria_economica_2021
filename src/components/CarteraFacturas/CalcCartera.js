@@ -139,7 +139,6 @@ const CalcCartera = ({
       vEntre = 0,
       arrCI = cIniciales,
       arrCF = cFinales,
-      r = 0,
       tempTcea,
       tef,
       dias;
